@@ -3,6 +3,8 @@ import { CreateProjectDto } from '../../presentation/dto/create-project.dto';
 import { UpdateProjectDto } from '../../presentation/dto/update-project.dto';
 import { Project } from '../../domain/project';
 import { ProjectPort } from '../../../../infrastructure/ports/project.port';
+import { ResponseProjectDto } from '../../presentation/dto/response-project.dto';
+import { ResponseDeleteProjectDto } from '../../presentation/dto/response-delete-project.dto';
 
 @Injectable()
 export class ProjectService {
@@ -12,24 +14,37 @@ export class ProjectService {
     private readonly projectPort: ProjectPort
   ) { }
 
-
-  create(createprojectDto: CreateProjectDto) {
-    return 'This action adds a new project';
+  async findAllProjects(): Promise<ResponseProjectDto[]>  {
+    const projects = await this.projectPort.findAllProjects();
+    const responseProjects: ResponseProjectDto[] = [];
+    projects.forEach(p => {
+      responseProjects.push(new ResponseProjectDto(p.id, p.title, p.startDate, p.endDate));
+    });
+    return responseProjects;
   }
 
-  async findAll() {
-    return await this.projectPort.findAllProjects();
+  async create(createprojectDto: CreateProjectDto): Promise<ResponseProjectDto> {
+    const projectDomain = await this.project.instantiate(createprojectDto);
+    const { id, title, startDate, endDate } = projectDomain;
+    return new ResponseProjectDto(id, title, startDate, endDate);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(projectId: string): Promise<ResponseProjectDto> {
+    const projectDomain = await this.project.find(projectId);
+    const { id, title, startDate, endDate } = projectDomain;
+    return new ResponseProjectDto(id, title, startDate, endDate);
   }
 
-  update(id: number, updateprojectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
+  async update(projectId: string, updateprojectDto: UpdateProjectDto): Promise<ResponseProjectDto> {
+    const projectDomain = await this.project.update(projectId, updateprojectDto);
+    const { id, title, startDate, endDate } = projectDomain;
+    return new ResponseProjectDto(id, title, startDate, endDate);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id: string): Promise<ResponseDeleteProjectDto> {
+    const isDeleted = await this.project.delete(id);
+    return {
+      isDeleted
+    }
   }
 }

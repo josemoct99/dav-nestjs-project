@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresTypeOrmConfigService } from './config/postgres-type-orm-config.service';
 import { ProjectPort } from './ports/project.port';
 import { ProjectRepository } from './database/repositories/project.repository';
+import { ProjectMapper } from './mappers/project.mapper';
 
 @Global()
 @Module({
@@ -15,7 +16,8 @@ import { ProjectRepository } from './database/repositories/project.repository';
     ],
     providers: [
         ProjectPort,
-        ProjectRepository
+        ProjectRepository,
+        ProjectMapper
     ],
     exports: [
         ProjectPort

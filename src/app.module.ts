@@ -8,6 +8,7 @@ import appConfig from './shared/config/app.config';
 import { LogginMiddleware } from './shared/utils/logging.middleware';
 import { TaskModule } from './modules/task/task.module';
 import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { UserModule } from './modules/user/user.module';
     InfrastructureModule,
     ProjectModule,
     TaskModule,
-    UserModule
+    UserModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
