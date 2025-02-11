@@ -1,21 +1,22 @@
+import './dotenv.config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 const TypeormConfig = {
   type: process.env.TYPEORM_TYPE,
-  host: process.env.PMB_POSTGRES_HOST,
-  username: process.env.PMB_POSTGRES_USERNAME,
-  port: process.env.PMB_POSTGRES_PORT,
-  database: process.env.PMB_POSTGRES_DATABASE,
-  password: process.env.PMB_POSTGRES_PASSWORD,
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/../infrastructure/database/migrations/**/*{.ts,.js}'],
-  logging: false,
+  host: process.env.POSTGRES_HOST,
+  username: process.env.POSTGRES_USERNAME,
+  port: process.env.POSTGRES_PORT,
+  database: process.env.POSTGRES_DATABASE,
+  password: process.env.POSTGRES_PASSWORD,
+  entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
+  migrations: [__dirname + '/../../infrastructure/database/migrations/**/*{.ts,.js}'],
+  logging: true,
   synchronize: process.env.TYPEORM_SYNC === 'true',
   migrationsTableName: 'typeorm_migrations',
   cli: {
     migrationsDir: 'src/infrastructure/database/migrations',
   },
-  schema: 'kata',
+  schema: 'public',
 };
 
 export default TypeormConfig;

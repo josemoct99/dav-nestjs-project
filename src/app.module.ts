@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { InfrastructureModule } from './src/infrastructure/infrastructure/infrastructure.module';
+import { InfrastructureModule } from './infrastructure/infrastructure.module';
+import { GenericModule } from './modules/generic/generic.module';
 import appConfig from './shared/config/app.config';
+import { LogginMiddleware } from './shared/utils/logging.middleware';
 
 @Module({
   imports: [
@@ -12,9 +14,16 @@ import appConfig from './shared/config/app.config';
       load: [appConfig],
       envFilePath: '.env'
     }),
-    InfrastructureModule
+    ConfigModule.forFeature(appConfig),
+    InfrastructureModule,
+    GenericModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LogginMiddleware).forRoutes('*');
+  }
+
+}
