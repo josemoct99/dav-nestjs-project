@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
-import { GenericModule } from './modules/generic/generic.module';
+import { ProjectModule } from './modules/project/project.module';
 import appConfig from './shared/config/app.config';
 import { LogginMiddleware } from './shared/utils/logging.middleware';
 
@@ -16,7 +16,7 @@ import { LogginMiddleware } from './shared/utils/logging.middleware';
     }),
     ConfigModule.forFeature(appConfig),
     InfrastructureModule,
-    GenericModule
+    ProjectModule
   ],
   controllers: [AppController],
   providers: [AppService],

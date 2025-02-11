@@ -2,8 +2,8 @@ import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresTypeOrmConfigService } from './config/postgres-type-orm-config.service';
-import { GenericPort } from './ports/generic.port';
-import { GenericRepository } from './database/repositories/generic.repository';
+import { ProjectPort } from './ports/project.port';
+import { ProjectRepository } from './database/repositories/project.repository';
 
 @Global()
 @Module({
@@ -14,11 +14,11 @@ import { GenericRepository } from './database/repositories/generic.repository';
         })
     ],
     providers: [
-        GenericPort,
-        GenericRepository
+        ProjectPort,
+        ProjectRepository
     ],
     exports: [
-        GenericPort
+        ProjectPort
     ]
 })
 export class InfrastructureModule { }

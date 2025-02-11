@@ -1,13 +1,13 @@
 import { DataSource, Repository } from "typeorm";
-import { GenericEntity } from "../entities/generic.entity";
+import { ProjectEntity } from "../entities/project.entity";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
-export class GenericRepository {
-    private readonly instance: Repository<GenericEntity>
+export class ProjectRepository {
+    private readonly instance: Repository<ProjectEntity>
 
     constructor(private readonly dataSource: DataSource) {
-        this.instance = this.dataSource.getRepository(GenericEntity);
+        this.instance = this.dataSource.getRepository(ProjectEntity);
     }
 
     public async findOne(name: string) {
