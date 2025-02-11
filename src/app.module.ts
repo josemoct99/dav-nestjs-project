@@ -7,6 +7,7 @@ import { ProjectModule } from './modules/project/project.module';
 import appConfig from './shared/config/app.config';
 import { LogginMiddleware } from './shared/utils/logging.middleware';
 import { TaskModule } from './modules/task/task.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { TaskModule } from './modules/task/task.module';
     ConfigModule.forFeature(appConfig),
     InfrastructureModule,
     ProjectModule,
-    TaskModule
+    TaskModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],
