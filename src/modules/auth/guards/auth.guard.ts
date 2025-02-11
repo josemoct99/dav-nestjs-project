@@ -2,8 +2,8 @@ import { CanActivate, ExecutionContext, Injectable, Logger, UnauthorizedExceptio
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { Roles } from '../decorators/roles.decorator';
-import { AuthService } from '../../modules/auth/auth.service';
+import { Roles } from '../../../shared/decorators/roles.decorator';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

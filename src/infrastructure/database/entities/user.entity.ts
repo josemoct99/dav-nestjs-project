@@ -22,6 +22,9 @@ export class UserEntity {
   })
   role: UserRole;
 
+  @Column({ name: "password", select: false })
+  password: string;
+
   @OneToMany(() => ProjectEntity, (project) => project.user)
   projects: ProjectEntity[];
 }

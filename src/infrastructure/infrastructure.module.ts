@@ -5,6 +5,9 @@ import { PostgresTypeOrmConfigService } from './config/postgres-type-orm-config.
 import { ProjectPort } from './ports/project.port';
 import { ProjectRepository } from './database/repositories/project.repository';
 import { ProjectMapper } from './mappers/project.mapper';
+import { UserPort } from './ports/user.port';
+import { UserMapper } from './mappers/user.mapper';
+import { UserRepository } from './database/repositories/user.repository';
 
 @Global()
 @Module({
@@ -17,10 +20,14 @@ import { ProjectMapper } from './mappers/project.mapper';
     providers: [
         ProjectPort,
         ProjectRepository,
-        ProjectMapper
+        ProjectMapper,
+        UserPort,
+        UserRepository,
+        UserMapper
     ],
     exports: [
-        ProjectPort
+        ProjectPort,
+        UserPort
     ]
 })
 export class InfrastructureModule { }
